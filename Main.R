@@ -1,15 +1,15 @@
 library("RODBC")
-channelOracle <- odbcDriverConnect(paste("DRIVER={Oracle in OraClient18Home1};DBQ=EMERALD.KSH.HU;UID=", Sys.getenv("userid"), ";PWD=", Sys.getenv("pwd")))
+channelOracle <- odbcDriverConnect(paste("DRIVER={Oracle in OraClient18Home1};DBQ=EMERALD.KSH.HU;UID=", Sys.getenv("userid"), ";PWD=", Sys.getenv("pwd")), DBMSencoding = "latin1")
 
 (LAST_RUNNING <- sqlQuery(channelOracle, "select PARAM_ERTEK from VB_REP.VB_APP_INIT where ALKALMAZAS = 'MNB napi változáslista küldése' and PROGRAM = 'mnb_EBEAD.sql' and PARAM_NEV = 'utolso_futas'"))
-#2024-04-16 10:30:02
+#2024-06-06 10:30:01
 #str(LAST_RUNNING)
 #LAST_RUNNING[1] <- "2024-01-11 10:30:02"
 #CHANGED_ON_2023061718 <- sqlQuery(channelOracle, "select * from VB_REP.MNB_NAPI")
-CHANGED_ON_20240417 <- sqlQuery(channelOracle, "select * from VB_REP.MNB_NAPI")
-View(CHANGED_ON_20240417[CHANGED_ON_20240417$KOD == "Q01",])
-View(CHANGED_ON_20240417[CHANGED_ON_20240417$KOD == "Q02",])
-View(CHANGED_ON_20240417[CHANGED_ON_20240417$KOD == "Q03",])
+CHANGED_ON_20240607 <- sqlQuery(channelOracle, "select * from VB_REP.MNB_NAPI")
+View(CHANGED_ON_20240607[CHANGED_ON_20240607$KOD == "Q01",])
+View(CHANGED_ON_20240607[CHANGED_ON_20240607$KOD == "Q02",])
+View(CHANGED_ON_20240607[CHANGED_ON_20240607$KOD == "Q03",])
 
 
 #write.table(Q01_MENT$X4, "filename.txt", sep="\n", row.names=FALSE, col.names = FALSE, quote = FALSE)

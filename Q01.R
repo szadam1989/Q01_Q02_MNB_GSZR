@@ -11,12 +11,11 @@ for(row in 1:length(CHANGED_ALL_M003)){
 }
 View(Q01)
 
-
+#, DBMSencoding = "UTF-8"
 library("RODBC")
-channelOracle <- odbcDriverConnect(paste("DRIVER={Oracle in OraClient18Home1};DBQ=EMERALD.KSH.HU;UID=", Sys.getenv("userid"), ";PWD=", Sys.getenv("pwd")))
+channelOracle <- odbcDriverConnect(paste("DRIVER={Oracle in OraClient18Home1};DBQ=EMERALD.KSH.HU;UID=", Sys.getenv("userid"), ";PWD=", Sys.getenv("pwd")), DBMSencoding = "latin1")
 datum <- paste(substr(Sys.Date(), 1, 4), substr(Sys.Date(), 6, 7), substr(Sys.Date(), 9, 10), sep = "")
 
-#
 for(row in 1:length(CHANGED_ALL_M003)){
   
   if(nchar(row) == 1){
@@ -368,11 +367,11 @@ for(i in 1:nrow(Q01)){
   
   for(j in 1:ncol(Q01)){
     
-    if(Q01[i, j] != CHANGED_ON_20240417[CHANGED_ON_20240417$FILENAME == Q01[i, 2] & CHANGED_ON_20240417$SORSZAM == Q01[i, 3], j]){
+    if(Q01[i, j] != CHANGED_ON_20240607[CHANGED_ON_20240607$FILENAME == Q01[i, 2] & CHANGED_ON_20240607$SORSZAM == Q01[i, 3], j]){
       
       hiba <- hiba + 1
       #i, j, 
-      cat(paste(Q01[i, j], CHANGED_ON_20240417[CHANGED_ON_20240417$FILENAME == Q01[i, 2] & CHANGED_ON_20240417$SORSZAM == Q01[i, 3], j], sep = "\n"))
+      cat(paste(Q01[i, j], CHANGED_ON_20240607[CHANGED_ON_20240607$FILENAME == Q01[i, 2] & CHANGED_ON_20240607$SORSZAM == Q01[i, 3], j], sep = "\n"))
       cat("\n")
       cat("\n")
     }
@@ -421,7 +420,7 @@ Q01_REKORD <- gsub("\",", ",", Q01_REKORD)
 Q01_REKORD <- gsub("\"\"", "\"", Q01_REKORD)
 Q01_REKORD <- gsub("Ą", "Ľ", Q01_REKORD)
 Q01_REKORD <- gsub("©", "Š", Q01_REKORD)
-write.table(Q01_REKORD, "Q013101815302724", sep="\n", row.names=FALSE, col.names = FALSE, quote = FALSE)
+write.table(Q01_REKORD, "Q014060715302724", sep="\n", row.names=FALSE, col.names = FALSE, quote = FALSE)
 
 
 hiba <- 0
